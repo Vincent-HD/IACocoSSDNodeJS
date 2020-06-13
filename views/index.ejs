@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Projet 2</title>
+  <link rel="stylesheet" type="text/css" href="/public/stylesheets/style.css" />
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <span class="navbar-brand mb-0 h1 align-middle">
+      <img src="https://js.tensorflow.org/images/lockup.svg" alt="" width="170">
+      <span class="badge badge-info">TP CESI</span>
+    </span>
+    <p class="font-italic">By HOUDAN VINCENT, COUERBE CHRISTOPHE, HERNANDEZ ALEXANDRE, KAMPHAUS NICOLAS, LOISON DORIAN
+    </p>
+  </nav>
+  <div class="row">
+    <div class="card col-sm-7 col-xs-12">
+      <div class="card-body">
+        <h5 class="card-title">Importer votre image</h5>
+        <div class="row"><input type="file" id="fileUpload" accept="image/*" multiple="false" /></div>
+        <div class="row"><canvas id="overlay" style="max-width: 1000px;"></canvas></div>
+        
+      </div>
+    </div>
+    <div class="col-sm-5">
+      <table class="table thead-dark table-hover table-responsive">
+        <thead>
+          <th scope="col">Image</th>
+          <th style="text-align:center; width:30%" scope="col">Type</th>
+          <th style="text-align:center; width:20%" scope="col">%</th>
+        </thead>
+        <tbody id="prediction">
+          <% data.forEach((d) => { %>
+            <tr>
+              <td><%= d.imageName %></td>
+              <td>
+                <ol>
+                  <% d.detections.forEach((dd) => { %>
+                    <li><%= dd.class %></li>
+                  <% }) %>
+                </ol>
+              </td>
+              <td>
+                <ul>
+                  <% d.detections.forEach((dd) => { %>
+                    <li><%= Math.floor(dd.score*100) %> %</li>
+                  <% }) %>
+                  </ul>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+    <img id="loading" src="/public/img/loading.gif" alt="Loading">
+  </div>
+  <script src="/public/javascript/detection.js"></script>
+  <!-- Place your code in the script tag below. You can also use an external .js file -->
+</body>
+</html>
